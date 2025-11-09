@@ -1,0 +1,45 @@
+{
+  "jobs": [
+    {
+      "id": "a2f4695b-f5bf-426f-9066-2f14a39e409b",
+      "name": "send_email",
+      "data": {
+        "info": "data for send_email"
+      },
+      "status": "queued",
+      "retries": 0,
+      "created_at": 1762661800.942562,
+      "updated_at": 1762661800.942562
+    },
+    {
+      "id": "c785837fa95042ac85a5a89a1e78a7e1",
+      "command": "echo hello && exit 0",
+      "state": "pending",
+      "attempts": 0,
+      "max_retries": null,
+      "created_at": "2025-11-09T04:49:05Z",
+      "updated_at": "2025-11-09T04:49:05Z"
+    },
+    {
+      "id": "8861ce3e749546ea92ba4c0d2008896c",
+      "command": "exit 1",
+      "state": "pending",
+      "attempts": 0,
+      "max_retries": null,
+      "created_at": "2025-11-09T04:49:11Z",
+      "updated_at": "2025-11-09T04:49:11Z"
+    },
+    {
+      "id": "fe6ad23dd7274bd6a699ac08fcadde87",
+      "command": "exit 1",
+      "state": "pending",
+      "attempts": 4,
+      "max_retries": null,
+      "created_at": "2025-11-09T04:27:41Z",
+      "updated_at": "2025-11-09T04:49:58Z"
+    }
+  ],
+  "completed": [],
+  "failed": [],
+  "dlq": []
+}
