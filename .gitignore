@@ -2,3 +2,5 @@ __pycache__/
 *.pyc
 queue_data.json
 workers.json
+config.json
+queue_data.json
