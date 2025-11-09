@@ -159,3 +159,6 @@ Expected Result: The job is re-enqueued and retried again.
 python queue_ctl.py worker stop
 ```
 Expected Result: Workers finish their current job before shutting down.
+
+## Demo Video
+Watch the CLI demo here: [Demo Video](https://drive.google.com/file/d/1ivzozeJ4u6Eq8rHzrHQLeY9AkzMBBLWi/view?usp=drive_link)
