@@ -20,14 +20,9 @@ def now_iso():
 
 @contextmanager
 def file_lock(timeout=5):
-    """
-    Simple atomic lock using lock file creation.
-    Retries until timeout (seconds).
-    """
     start = time.time()
     while True:
         try:
-            # use os.O_CREAT | os.O_EXCL so creation fails if exists (atomic)
             fd = os.open(str(LOCK_FILE), os.O_CREAT | os.O_EXCL | os.O_WRONLY)
             os.write(fd, str(os.getpid()).encode())
             os.close(fd)
@@ -141,9 +136,6 @@ class JobStore:
             return [Job.from_dict(j) for j in data.get("dlq", [])]
 
     def claim_job(self, worker_id=None):
-        """
-        Atomically find a job with state 'pending', mark it 'processing' and return it.
-        """
         with file_lock():
             data = self._read()
             for idx, j in enumerate(data.get("jobs", [])):
@@ -158,10 +150,6 @@ class JobStore:
             return None
 
     def update_job_after_run(self, job: Job, success: bool, move_to_dlq=False):
-        """
-        If success: mark completed and remove from jobs list -> append to completed (we'll just remove).
-        If fail/retry: either requeue (pending) or move to dlq (dead).
-        """
         with file_lock():
             data = self._read()
             # find job in jobs by id
