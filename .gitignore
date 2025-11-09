@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+queue_data.json
+workers.json
