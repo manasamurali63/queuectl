@@ -8,7 +8,7 @@ import sys
 import time
 from queue_core import Job, JobStore, DATA_FILE, WORKERS_FILE, BASE_DIR, load_config, save_workers, load_workers
 
-PY = sys.executable  # full python path used to re-launch worker process
+PY = sys.executable  
 
 
 def enqueue_command(args):
@@ -17,7 +17,6 @@ def enqueue_command(args):
     if args.json:
         try:
             jobdict = json.loads(args.json)
-            # jobdict should contain at least "command"; fill defaults
             job = Job(command=jobdict.get("command") or jobdict.get("cmd"), max_retries=jobdict.get("max_retries"))
         except Exception as e:
             print("Invalid JSON for enqueue:", e)
@@ -34,7 +33,6 @@ def run_worker_loop(worker_id, backoff_base, default_max_retries):
     stop_file = BASE_DIR / f"worker_{worker_id}.stop"
     try:
         while True:
-            # check for stop signal file (graceful)
             if stop_file.exists():
                 print(f"[worker-{worker_id}] stop file detected; exiting after current job.")
                 break
@@ -80,7 +78,6 @@ def run_worker_loop(worker_id, backoff_base, default_max_retries):
 
 
 def worker_start(args):
-    # spawn N background worker processes (detached)
     count = args.count or 1
     config = load_config()
     pids = []
@@ -121,7 +118,6 @@ def worker_stop(args):
 
 
 def worker_process_main(args):
-    # this is the background worker process entrypoint
     cfg = load_config()
     backoff_base = cfg.get("backoff_base", 2)
     default_max_retries = cfg.get("max_retries", 3)
@@ -181,7 +177,6 @@ def cmd_config(args):
         if val is None:
             print("Please provide value to set.")
             return
-        # coerce to int if numeric
         try:
             if val.isdigit():
                 val = int(val)
